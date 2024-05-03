@@ -1,0 +1,7 @@
+0       0 0.00
+1 Comedia El mundo de Coco Tula Blanca 1 300.00
+7 Comedia Las Aventuras de Lucas Lucas 7 350.00
+3 Aventura Las Ruinas Olvidadas Jorge Pereira 3 300.00
+4 Terror El Tibueron Asesino Roco Molina 4 900.00
+5 Romance Tu Madre Cabalga  Juancho Galleta 5 100.00
+6 Accion La wacha y el wacho El jonny 6 50.00

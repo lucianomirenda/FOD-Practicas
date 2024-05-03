@@ -1,0 +1,7 @@
+-1       0 0.00
+-6       0 0.00
+9 techno 999 la valen 9 16000.00
+0       0 0.00
+4 Terror El Tibueron Asesino Roco Molina 4 900.00
+8 comedia jonny y su botella jonny 8 800.00
+-3       0 0.00

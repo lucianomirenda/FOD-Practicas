@@ -1,0 +1,108 @@
+program untitled;
+const
+	valorAlto = 9999;
+type
+	asistenteReg = record
+		dni,telefono,nro:integer;
+		apellido,nombre,email:string;
+	end;
+	
+	asistenteFile = file of asistenteReg;
+	
+	
+procedure leerAsistente(var reg:asistenteReg);
+begin
+	writeln('Ingrese el nro de asistente');
+	readln(reg.nro);
+	writeln('Ingrese el nombre');
+	readln(reg.nombre);
+	writeln('Ingrese el apellido');
+	readln(reg.apellido);
+	writeln('Ingrese el email');
+	readln(reg.email);
+	writeln('Ingrese el DNI');
+	readln(reg.dni);
+	writeln('Ingrese el telefono');
+	readln(reg.telefono);
+end;
+	
+procedure cargarArchivo(var archivo:asistenteFile);
+var
+	reg:asistenteReg;
+begin
+	rewrite(archivo);
+	leerAsistente(reg);
+	
+	while(reg.nro <> -1)do begin
+		write(archivo,reg);
+		leerAsistente(reg);
+	end;
+	close(archivo);
+
+end;
+procedure leerArchivo(var archivo:asistenteFile;var reg:asistenteReg);
+begin
+
+	if not EOF(archivo)then
+		read(archivo,reg)
+	else
+		reg.nro:= valorAlto;
+		
+	
+end;
+
+procedure eliminarAsistentes(var archivo:asistenteFile);
+var
+	reg:asistenteReg;
+begin
+	
+	reset(archivo);
+	leerArchivo(archivo,reg);
+	while(reg.nro <> valorAlto)do begin
+		
+		if(reg.nro < 1000)then begin
+			reg.nombre:= '$' + reg.nombre;
+			seek(archivo,filepos(archivo)-1);
+			write(archivo,reg);
+		end;
+		
+		leerArchivo(archivo,reg);
+	
+	end;
+	
+	close(archivo);
+
+end;
+
+procedure exportarTexto(var archivo:asistenteFile;nombre:string);
+var
+		archivoTexto:Text;
+		reg:asistenteReg;
+begin
+		assign(archivoTexto,nombre);
+		reset(archivo);
+		rewrite(archivoTexto);
+		
+		while not EOF(archivo)do begin
+				
+				read(archivo,reg);		
+				writeln(archivoTexto,reg.nombre,' ',reg.apellido,' ',reg.dni);
+
+		end;
+		
+		close(archivo);
+		close(archivoTexto);
+		
+end;
+
+var 
+	archivo:asistenteFile;
+BEGIN
+	assign(archivo,'asistentes.data');
+	cargarArchivo(archivo);
+	exportarTexto(archivo,'sin eliminar.txt');
+	eliminarAsistentes(archivo);
+	exportarTexto(archivo,'eliminados.txt');
+	
+END.
+
